@@ -1,5 +1,7 @@
 using ExpenseTracker.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using ExpenseTracker.Application.Interfaces.Repositories;
+using ExpenseTracker.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,11 @@ builder.Services.AddDbContext<ExpenseTrackerDbContext>(options =>
 
     options.UseNpgsql(connectionString);
 });
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
+builder.Services.AddScoped<IBudgetRepository, BudgetRepository>();
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
