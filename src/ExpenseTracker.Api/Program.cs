@@ -4,6 +4,7 @@ using ExpenseTracker.Application.Interfaces.Repositories;
 using ExpenseTracker.Infrastructure.Repositories;
 using ExpenseTracker.Application.Interfaces.Services;
 using ExpenseTracker.Application.Services;
+using ExpenseTracker.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +41,8 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
